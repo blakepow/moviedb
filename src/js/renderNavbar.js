@@ -5,7 +5,7 @@ const renderNavbar = () => {
     navbar.innerHTML = `
         <ul>
           <li class="${params === '/' && 'active'}"><a href="/">Home</a></li>
-          <li class="${params === '/src/watchlist.html' && 'active'}"><a href="${params !== '/src/watchlist.html' ? './src/watchlist.html' : ''}">Watchlist</a></li>
+          <li class="${params === '/watchlist.html' && 'active'}"><a href="${params !== '/watchlist.html' ? './watchlist.html' : ''}">Watchlist</a></li>
         </ul>
     `;
 }
