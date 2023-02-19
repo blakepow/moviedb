@@ -71,6 +71,27 @@
     background: #fff;
     border-radius: 0.5em;
     padding: 1em;
+    background: var(--tertiary-color);
+}
+
+.movie-details > article {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    text-align: center;
+}
+
+.movie-details > article > button {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 0.5em;
+    background: var(--primary-color);
+    color: white;
+    font-size: .9em;
+    cursor: pointer;
+    transition: background 0.3s;
+    /*max-width: min-content;*/
+    /*margin-left: auto;*/
 }
 
 .movie-details h2 {
