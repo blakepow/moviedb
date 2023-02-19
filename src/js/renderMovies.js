@@ -1,23 +1,40 @@
 //change the category to see the different movies with buttons
 import getMovies from "./getMovies.js";
-import {addToWatchlist} from "./movieSelect.js";
+import {addToSaved, removeFromSaved} from "./saveMovie.js";
 
 const app = document.querySelector('#app');
-const movieList = document.querySelector('#movie-list');
+const movieList = document.querySelector('.movie-list');
 
-export const renderVideos = (category) => {
+const savedMovies = JSON.parse(localStorage.getItem('saved')) || [];
+const savedMoviesIds = savedMovies.map(movie => movie.id);
+
+
+export const renderMovies = (category) => {
+    movieList.classList.remove('loaded');
+
+    //add active class to button
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.classList.remove('active');
+    })
+    document.querySelector(`#${category}`).classList.add('active');
+
     getMovies(category).then(data => {
+        const {results} = data;
         movieList.innerHTML = '';
-        data.results.forEach(movie => {
+        results.forEach(movie => {
             const {title, poster_path, overview, release_date, vote_average, backdrop_path} = movie;
             const movieEl = document.createElement('div');
+            movieEl.classList.add('movie');
+            //check if movie is in watchlist
+            if(savedMoviesIds.includes(movie.id)) {
+                movieEl.classList.add('saved');
+            }
             movieEl.innerHTML = `
-                <div class="movie">
-                    <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}">
-                    <article>
-                        <h2>${title}</h2>
-                    </article>
-                </div>
+                <img src="https://image.tmdb.org/t/p/w500/${poster_path}" alt="${title}">
+                <article>
+                    <h2>${title}</h2>
+                </article>
             `;
 
             movieEl.addEventListener('click', () => {
@@ -31,7 +48,7 @@ export const renderVideos = (category) => {
                             <p>${overview}</p>
                             <p>Release date: ${release_date}</p>
                             <p>Rating: ${vote_average}</p>
-                            <button class="watch_later">Save</button>
+                            ${!savedMoviesIds.includes(movie.id) ? '<button class="watch_later">Save</button>' : '<span>Already saved</span>'}
                         </article>
                     </div>
                 `;
@@ -43,14 +60,18 @@ export const renderVideos = (category) => {
                 })
 
                 const watchLaterButton = document.querySelector('.watch_later');
-                watchLaterButton.addEventListener('click', () => {
-                    addToWatchlist(movie);
+                !savedMoviesIds.includes(movie.id) && watchLaterButton.addEventListener('click', () => {
+                    addToSaved(movie);
+                    movieEl.classList.add('saved');
+                    watchLaterButton.remove();
                 })
 
             })
 
             movieList.appendChild(movieEl);
+
         });
+            movieList.classList.add('loaded');
     });
 }
 

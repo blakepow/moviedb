@@ -1,4 +1,5 @@
 @import "./movies.css";
+@import "./navbar.css";
 
 * {
     margin: 0;
@@ -14,4 +15,35 @@
     --quaternary-color: #aec5eb;
     --quinary-color: #685044;
 }
+
+
+#app {
+    background: var(--secondary-color);
+    font-family: 'Roboto', sans-serif;
+}
+
+#button-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1em;
+    padding: 0 5em;
+    flex-wrap: wrap;
+    gap: 1em;
+}
+
+#button-container button {
+    padding: 0.5em 1em;
+    border: none;
+    border-radius: 0.5em;
+    background: var(--primary-color);
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+#button-container button:hover, #button-container button.active {
+    background: var(--quaternary-color);
+}
+
 

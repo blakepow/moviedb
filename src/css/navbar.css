@@ -1,0 +1,29 @@
+nav {
+    background-color: var(--primary-color);
+    overflow: hidden;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+
+    display: flex;
+    justify-content: space-evenly;
+    font-size: 2.5em;
+    padding: .5em;
+}
+
+nav a {
+    transition: color 0.3s;
+}
+
+nav a:hover, nav li.active a {
+    color: var(--quaternary-color);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
